@@ -1,0 +1,20 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+	Your title: Manship IT Department                        
+	Site: deanarmada@gmail.com      
+	Facebook: Dean Christian Armada.
+	Location: Makati City, Philippine
+
+# THANKS
+	Name: Dean Christian Armada <http://www.deanchrisarmada.com>
+
+# TECHNOLOGY COLOPHON
+	Last Update: Not yet finished
+    Standards: HTML5, CSS3, BootStrap3
+    Components: Javascript, jQuery, Modernizr
+    BackEnd: Python, Django
+    Online Tools: Github, ReadtheDocs, HTMLCov
+    Web Optimization Tools: Validator W3, PageSpeed, ScreamingFrog SEO Spider, Xenu, YSlow
+    Web Security Tool: OWASP ZAP

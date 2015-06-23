@@ -1,0 +1,32 @@
+{% extends 'crew/base.html' %}
+{% block body %}
+  <div class="table-responsive members">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Gender</th>
+          <th>City</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AAAA</td>
+          <td>Mr.</td>
+          <td>Dean Christian Armada</td>
+          <td>Philippines</td>
+          <td>Male</td>
+          <td>Makati City</td>
+          <td><button type="button" class="btn btn-warning update-form" data-catid=''>Update</button></td>
+          <td><button type="button" class="btn btn-danger recycle-btn" data-catid=''>Move to Trash</button></td>
+          <td><button type="button" class="btn btn-info view-cert" data-catid=''>View Certificate</button></td>
+          <td><button type="button" class="btn btn-info view-cert-info" data-catid=''>View Certification Info</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
+{% endblock %}

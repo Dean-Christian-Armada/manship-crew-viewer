@@ -18,33 +18,6 @@ class Certificates(models.Model):
 	C_Time_Last = models.DateTimeField() # Timestamp of last change
 	C_Who_Last = models.CharField(max_length=100) # Who did the last change
 
-class RequiredCertificates(models.Model):
-	# 11 rows
-	# Foreign Keys = ['Principals', 'Rank', 'Vessel Category', 'Certificate Group']
-	RC_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	RC_REC = models.IntegerField() # Req Cert REC
-	RC_UNIQUE = models.CharField(max_length=18) # Principal + Vessel Main Cat + Rank + Master Cert Key must be UNIQUE
-	# P_KEY = Principal as Foreign Key
-	RC_P_KEY = models.CharField(max_length=6, unique=True) # Principal Code
-	# VC_KEY = Vessel Category as Foreign Key
-	RC_VC_KEY = models.CharField(max_length=1) # Vessel Main Category
-	# R_KEY = Rank as Foreign Key
-	RC_R_KEY = models.CharField(max_length=4) # Rank Code
-	# RG_KEY = Certificate Group as Foreign Key
-	RC_CG_KEY = models.CharField(max_length=4) # Certificate Group Code
-	RC_Source = models.CharField(max_length=1) # Source (I)nhouse or (O)utside
-	RC_Interval = models.IntegerField() # Interval
-	RC_Time_Last = models.DateTimeField() # Timestamp of last change
-	RC_Who_Last = models.CharField(max_length=4) # Who did the last change
-
-class CERT_GROUPS(models.Model):
-	# 5 rows
-	CG_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	CG_KEY = models.CharField(max_length=4) # Cert Group (Master) Key
-	CG_Full = models.CharField(max_length=64) # Cert Group Full Name
-	CG_Time_Last = models.DateTimeField() # Timestamp of last change
-	CG_Who_Last = models.CharField(max_length=4) # Who did the last change
-
 class BIO_DATA(models.Model):
 	# 67 rows
 	B_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
@@ -127,19 +100,9 @@ class RANKS(models.Model):
 	R_KEY = models.CharField(max_length=4) # Short rank code. e.g. CA captain
 	R_Full = models.CharField(max_length=16) # Full rank description
 	R_Sort = models.CharField(max_length=2) # Rank sorting seq. e.g.  CA=01 captain first
-	# TC_KEY = Tax Category as Foreign Key of R_TC_KEY
-	R_TC_KEY = models.CharField(max_length=1) # Category for taxes (C)rew / (O)fficer
 	R_Officer = models.CharField(max_length=1) # Officer/Crew
 	R_Time_Last = models.DateTimeField() # Timestamp of last change
 	R_Who_Last = models.CharField(max_length=4) # Who did the last change
-
-class TAX_CATEGORIES(models.Model):
-	# 5 rows
-	TC_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	TC_KEY = models.CharField(max_length=1) # Tax category eg (C)rew / (O)fficer
-	TC_Full = models.CharField(max_length=40) # Full Category Name
-	TC_Time_Last = models.DateTimeField() # Timestamp of last change
-	TC_Who_Last = models.CharField(max_length=4) # Who did the last change
 
 class DOCUMENTS(models.Model):
 	# 12 rows
@@ -158,7 +121,7 @@ class DOCUMENTS(models.Model):
 	D_Rank_R_KEY = models.CharField(max_length=4) # Rank on Certificate
 	D_Issue = models.DateTimeField() # Issue Date
 	D_Expire = models.DateTimeField() # Expiry Date
-	# CN_KEY as Foreign Key to CN_KEY
+	# CN_KEY as Foreign Key to D_OtherCountry
 	D_OtherCountry = models.CharField(max_length=2) # Other Country for Book/License (FOR MSMI)
 	D_Time_Last = models.DateTimeField() # Timestamp of last change
 	D_Who_Last = models.CharField(max_length=4) # Who did the last change
@@ -229,7 +192,7 @@ class SERVICE_RECORDS(models.Model):
 	S_Engine = models.CharField(max_length=6) # Engine Type
 
 class CONTRACTS(models.Model):
-	# 44 rows
+	# 45 rows
 	# Foreign Keys = ['Manning Agent', 'Principal', 'Wage']
 	CON_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted)self.
 	# 1-3
@@ -237,17 +200,17 @@ class CONTRACTS(models.Model):
 	CON_B_ID = models.CharField(max_length=4) # Seaman ID
 	CON_W_CS_KEY = models.CharField(max_length=2) # Wages Scale
 	CON_T_CS_KEY = models.CharField(max_length=2) # Taxes Scale
-	# MAN_KEYS as foreign key of CON_MAN_KEY
-	CON_MAN_KEY = models.CharField(max_length=4) # Manning Agent Code
 	# Prin_P_KEY as foreign key of CON_Prin_P_KEY
 	CON_Prin_P_KEY = models.CharField(max_length=6) # Principals Code
 	# Master_P_KEY as foreign key of CON_Master_P_KEY
 	CON_Master_P_KEY = models.CharField(max_length=6) # Master Official POEA Principal
-	# Wage_W_REC as foreign key of CON_Wage_W_REC
-	CON_Wage_W_REC = models.CharField(max_length=8) # Wage Table for this contract
+	# W_REC as foreign key of CON_Wage_W_REC
+	CON_Wage_W_REC = models.DecimalField(max_digits=8, decimal_places=2)
+	# V_KEY as foreign key of CON_Vsl_V_KEY
 	CON_Vsl_V_KEY = models.CharField(max_length=4) # Vessel Code
+	# R_KEY as foreign key of CON_Rank_R_KEY
 	CON_Rank_R_KEY = models.CharField(max_length=4) # Rank
-	CON_Crew_Category = models.CharField(max_length=1) # models.CharField(max_length=rew)/T(rainee)
+	CON_Crew_Category = models.CharField(max_length=1) #C(rew)/T(rainee)
 	# 16
 	CON_Length = models.IntegerField() # Contract Duration
 	CON_PDOS = models.DateTimeField() # Pre Depart Orient Sem. Date (FOR MSMI)
@@ -282,218 +245,6 @@ class CONTRACTS(models.Model):
 	CON_Time_Last = models.DateTimeField() # Timestamp of last change
 	CON_Who_Last = models.DateTimeField() # Who did the last change
 
-class WAGES(models.Model):
-	# 107 rows
-	# Foreign Keys = ['Principal', 'Rank', 'Component Scales', 'Components']
-	W_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	# 1-3
-	# P_KEY as foreign key of W_P_KEY
-	W_P_KEY = models.CharField(max_length=6) # Principals Code | principal_code
-	W_Date = models.DateTimeField() # Date Wage Scale becomes effective | effectivity_date
-	# R_KEY as foreign key of W_Rank_R_KEY
-	W_Rank_R_KEY = models.CharField(max_length=4) # Rank | rank_code
-	# CS_Key as Foreign Key os W_CS_Key
-	W_CS_KEY = models.CharField(max_length=2) # Wage Scale
-	W_M_Money = models.CharField(max_length=3) # Currency for this Wage Scale
-	W_Mth_Basic = models.DecimalField(max_digits=16, decimal_places=2) # Monthly Basic
-	W_Fix_Mth_OT = models.DecimalField(max_digits=16, decimal_places=2) # Fixed Monthly Overtime USD
-	W_Hourly_OT_Rate = models.DecimalField(max_digits=16, decimal_places=2) # Hourly Rate for OverTime USD/Hour
-	W_Min_Mth_OT_Hours = models.IntegerField() # Monthly Min. Overtime Hours
-	W_Hours_Week = models.IntegerField() # Weekly Standard Hours
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_1 = models.CharField(max_length=3) # Type of Salary Comp. 1 |"F"
-	W_Comp_Name_1 = models.CharField(max_length=16) # Name of Salary Comp. 1 | "fix_mthly_overtime"
-	W_Comp_Amnt_1 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 1 | fix_mthly_overtime
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_2 = models.CharField(max_length=3) # Type of Salary Comp. 2 |"H"
-	W_Comp_Name_2 = models.CharField(max_length=16) # Name of Salary Comp. 2 | "hourly_rate_OT_usd"
-	W_Comp_Amnt_2 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 2 | hourly_rate_OT_usd
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_3 = models.CharField(max_length=3) # Type of Salary Comp. 3 |"M"
-	W_Comp_Name_3 = models.CharField(max_length=16) # Name of Salary Comp. 3 | "owners_bonus"
-	W_Comp_Amnt_3 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 3 | owners_bonus
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_4 = models.CharField(max_length=3) # Type of Salary Comp. 4 |"M"
-	W_Comp_Name_4 = models.CharField(max_length=16) # Name of Salary Comp. 4 | "owners_nat"
-	W_Comp_Amnt_4 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 4 | owners_nat
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_5 = models.CharField(max_length=3) # Type of Salary Comp. 5 |"M"
-	W_Comp_Name_5 = models.CharField(max_length=16) # Name of Salary Comp. 5 | "increased_salary"
-	W_Comp_Amnt_5 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 5 | increased_salary
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_6 = models.CharField(max_length=3) # Type of Salary Comp. 6 |"M"
-	W_Comp_Name_6 = models.CharField(max_length=16) # Name of Salary Comp. 6 | "mthly_seniority_bonus"
-	W_Comp_Amnt_6 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 6 | mthly_seniority_bonus
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_7 = models.CharField(max_length=3) # Type of Salary Comp. 7 |"D"
-	W_Comp_Name_7 = models.CharField(max_length=16) # Name of Salary Comp. 7 | "cpt_port_daily"
-	W_Comp_Amnt_7 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 7 | cpt_port_daily
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_8 = models.CharField(max_length=3) # Type of Salary Comp. 8 |"M" 
-	W_Comp_Name_8 = models.CharField(max_length=16) # Name of Salary Comp. 8 | "mthly_extras_outside_contract"
-	W_Comp_Amnt_8 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 8 | mthly_extras_outside_contract
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_9 = models.CharField(max_length=3) # Type of Salary Comp. 9 |"M"
-	W_Comp_Name_9 = models.CharField(max_length=16) # Name of Salary Comp. 9 | "provident_fund"
-	W_Comp_Amnt_9 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 9 | provident_fund
-	# CO_Key as Foreign Key of W_Comp_Type_* 
-	W_Comp_Type_10 = models.CharField(max_length=3) # Type of Salary Comp. 10 |"M"
-	W_Comp_Name_10 = models.CharField(max_length=16) # Name of Salary Comp. 10 | "monthly_Sunday_allow"
-	W_Comp_Amnt_10 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 10 | monthly_Sunday_allow
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_11 = models.CharField(max_length=3) # Type of Salary Comp. 11 |"M"
-	W_Comp_Name_11 = models.CharField(max_length=16) # Name of Salary Comp. 11 | "monthly_supplementary_salary"
-	W_Comp_Amnt_11 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 11 | monthly_supplementary_salary
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_12 = models.CharField(max_length=3) # Type of Salary Comp. 12 |"M"
-	W_Comp_Name_12 = models.CharField(max_length=16) # Name of Salary Comp. 12 | "monthly_tanker_allow"
-	W_Comp_Amnt_12 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 12 | monthly_tanker_allow
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_13 = models.CharField(max_length=3) # Type of Salary Comp. 13 |"M"
-	W_Comp_Name_13 = models.CharField(max_length=16) # Name of Salary Comp. 13 | "monthly_gca_allow"
-	W_Comp_Amnt_13 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 13 | monthly_gca_allow
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_14 = models.CharField(max_length=3) # Type of Salary Comp. 14 |"M"
-	W_Comp_Name_14 = models.CharField(max_length=16) # Name of Salary Comp. 14 | "monthly_accum_leave_day"
-	W_Comp_Amnt_14 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 14 | monthly_accum_leave_day
-	# CO_Key as Foreign Key of W_Comp_Type_*	
-	W_Comp_Type_15 = models.CharField(max_length=3) # Type of Salary Comp. 15 |"M"	
-	W_Comp_Name_15 = models.CharField(max_length=16) # Name of Salary Comp. 15 | "monthly_leave_pay"
-	W_Comp_Amnt_15 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 15 | monthly_leave_pay
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_16 = models.CharField(max_length=3) # Type of Salary Comp. 16 |"R"
-	W_Comp_Name_16 = models.CharField(max_length=16) # Name of Salary Comp. 16 | "overtime_rate_1"
-	W_Comp_Amnt_16 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 16 | overtime_rate_1
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_17 = models.CharField(max_length=3) # Type of Salary Comp. 17 |"R"
-	W_Comp_Name_17 = models.CharField(max_length=16) # Name of Salary Comp. 17 | "overtime_rate_2"
-	W_Comp_Amnt_17 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 17 | overtime_rate_2
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_18 = models.CharField(max_length=3) # Type of Salary Comp. 18 |"R"
-	W_Comp_Name_18 = models.CharField(max_length=16) # Name of Salary Comp. 18 | "overtime_rate_holy"
-	W_Comp_Amnt_18 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 18 | overtime_rate_holy
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_19 = models.CharField(max_length=3) # Type of Salary Comp. 19 |"M"
-	W_Comp_Name_19 = models.CharField(max_length=16) # Name of Salary Comp. 19 | "bake_port_allow"
-	W_Comp_Amnt_19 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 19 | bake_port_allow
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_20 = models.CharField(max_length=3) # Type of Salary Comp. 20 |"M"
-	W_Comp_Name_20 = models.CharField(max_length=16) # Name of Salary Comp. 20 | "laundry_allow"
-	W_Comp_Amnt_20 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 20 | laundry_allow
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_21 = models.CharField(max_length=3) # Type of Salary Comp. 21 |"M"
-	W_Comp_Name_21 = models.CharField(max_length=16) # Name of Salary Comp. 21 | "cook_duties"
-	W_Comp_Amnt_21 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 21 | cook_duties
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_22 = models.CharField(max_length=3) # Type of Salary Comp. 22 |"M"
-	W_Comp_Name_22 = models.CharField(max_length=16) # Name of Salary Comp. 22 | "clean_defrost"
-	W_Comp_Amnt_22 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 22 | clean_defrost
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_23 = models.CharField(max_length=3) # Type of Salary Comp. 23 |"M"
-	W_Comp_Name_23 = models.CharField(max_length=16) # Name of Salary Comp. 23 | "Cpt_Port_Fixed"
-	W_Comp_Amnt_23 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 23 | Cpt_Port_Fixed
-	# CO_Key as Foreign Key of W_Comp_Type_*
-	W_Comp_Type_24 = models.CharField(max_length=3) # Type of Salary Comp. 24 |"M"
-	W_Comp_Name_24 = models.CharField(max_length=16) # Name of Salary Comp. 24
-	W_Comp_Amnt_24 = models.DecimalField(max_digits=16, decimal_places=2) # Amnt of Salary Comp. 24
-	W_Sen_1 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 1st year
-	W_Sen_2 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 2nd year
-	W_Sen_3 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 3rd year
-	W_Sen_4 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 4th year
-	W_Sen_5 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 5th year
-	W_Sen_6 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 6th year
-	W_Sen_7 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 7th year
-	W_Sen_8 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 8th year
-	W_Sen_9 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 9th year
-	W_Sen_10 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 10th year
-	W_Sen_11 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority bonus 11th year
-	W_Sen_Rank_1 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 1st year
-	W_Sen_Rank_2 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 2nd year
-	W_Sen_Rank_3 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 3rd year
-	W_Sen_Rank_4 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 4th year
-	W_Sen_Rank_5 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 5th year
-	W_Sen_Rank_6 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 6th year
-	W_Sen_Rank_7 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 7th year
-	W_Sen_Rank_8 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 8th year
-	W_Sen_Rank_9 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 9th year
-	W_Sen_Rank_10 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 10th year
-	W_Sen_Rank_11 = models.DecimalField(max_digits=8, decimal_places=2) # Amnt of Seniority on rank 11th year
-	W_Time_Last = models.DateTimeField() # Timestamp of last change
-	W_Who_Last = models.DateTimeField() # Who did the last change
-
-class COMPONENTS(models.Model):
-	# 30 Rows
-	# Foreign Keys = 'Component Scales'
-	CO_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	CO_KEY = models.CharField(max_length=4) # ;Component Code (e.g. H for Hourly, or GOF for Greek Owner's Family)
-	CO_Full = models.CharField(max_length=40) # Component Name (e.g. Monthly GCA Allow, or Greek Seaman's Home)
-	CO_Full_GRK = models.CharField(max_length=40) # Component Name in Greek (for printouts)
-	CO_CS_KEY = models.CharField(max_length=2) # Where should we use this component (XX for all scales)
-	CO_Sort = models.IntegerField() # Sort Number
-	CO_Table = models.CharField(max_length=1) # W(ages)/T(axes)
-	CO_Skip = models.CharField(max_length=1) # Skip input Y/N - if yes only display
-	CO_Taxable = models.CharField(max_length=1) # Y=taxable for earn. or non-taxable for contributions
-	CO_Who_Pays = models.CharField(max_length=1) # (S)eaman's or (O)wner's for contributions
-	CO_Is_Tax = models.CharField(max_length=1) # Is this comp. taxes only ?
-	CO_Prt_Monthly = models.CharField(max_length=1) # Print in monthly form (N)o,(W)ages only,(E)arnings only,(D)eductions only
-	CO_Prt_Contract_GCA = models.CharField(max_length=1) # (G)CA,(E)xtra or (N)one for printing in contracts
-	CO_Prt_Payroll = models.CharField(max_length=1) # (N)o,(Y)es alone,(O)vertime sum,(P)ort sum
-	CO_Prt_R_Payroll = models.CharField(max_length=1) # (N)o,(Y)es as it is,(O)vertime,(P)ort,N(A)T-PNO,(T)axes/stamp
-	CO_Prt_Retro = models.CharField(max_length=1) # Print in retro form ? (N)o,(E)arnings,(D)eductions
-	CO_Prt_Article = models.CharField(max_length=1) # Print in ship's article ? (Y/N)
-	CO_Prt_Clone = models.CharField(max_length=1) # Print in clone report ? (Y/N)
-	CO_Prt_Quest3 = models.CharField(max_length=1) # For future use
-	CO_Prt_Quest4 = models.CharField(max_length=1) # For future use
-	CO_Prt_Quest5 = models.CharField(max_length=1) # For future use
-	CO_Mon_Amnt = models.CharField(max_length=20) # Monthly amount - number, AMNT which means the assoc. amnt, or subroutine name
-	CO_Tot_Amnt = models.CharField(max_length=20) # Subtotal amount - number, AMNT which means the assoc. amnt, or subroutine name
-	CO_Fld_Depend1 = models.CharField(max_length=20) # Name of the screen field component is depending (eg multiplier, months etc)
-	CO_Fld_Depend2 = models.CharField(max_length=20) # Name of the screen field component is depending (days etc)
-	CO_Fld_Change1 = models.CharField(max_length=20) # Name of the screen field the component must change
-	CO_Fld_Change2 = models.CharField(max_length=20) # Name of the screen field the component must change
-	CO_Fld_Special = models.CharField(max_length=80) # General propose field with special meaning for each component
-	CO_Time_Last = models.DateTimeField() # Timestamp of last change
-	CO_Who_Last = models.DateTimeField() # Who did the last change
-
-class COMPONENT_SCALES(models.Model):
-	# 5 Rows
-	CS_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	CS_KEY = models.CharField(max_length=2) # Component Scale (e.g. F for Philippine)
-	CS_Full = models.CharField(max_length=40) # Wage Scale Full Description (e.g. Philippine)
-	CS_Time_Last = models.DateTimeField() # Timestamp of last change
-	CS_Who_Last = models.DateTimeField() # Who did the last change
-
-class MANNING_AGENT(models.Model):
-	# 16 rows
-	# Foreign Key = 'Officials'
-	MAN_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	MAN_KEY = models.CharField(max_length=4) # Short Manning Agent Code
-	MAN_Full = models.CharField(max_length=40) # Full Manning Agent Code
-	MAN_Addr1 = models.CharField(max_length=32) # Address Line 1 of Manning Agent
-	MAN_Addr2 = models.CharField(max_length=32) # Address Line 2 of Manning Agent
-	MAN_Addr3 = models.CharField(max_length=32) # Address Line 3 of Manning Agent
-	MAN_Addr4 = models.CharField(max_length=32) # Address Line 4 of Manning Agent
-	MAN_LawCountry = models.CharField(max_length=32) # Law, City, Country of Manning Agent
-	MAN_PhoneTelex = models.CharField(max_length=32) # Phone or Telex Number of Manning Agent
-	MAN_W_Tax_Agnt = models.CharField(max_length=18) # Tax Agent
-	MAN_TaxAccnt = models.CharField(max_length=20) # Tax Acct Number of Manning Agent
-	MAN_SSS = models.CharField(max_length=16) # Social Security Number of Manning Agent
-	MAN_AOH = models.CharField(max_length=32) # After Office Hours of Manning Agent
-	# OF_KEY as foreign key of MAN_OF_KEY
-	MAN_OF_KEY = models.CharField(max_length=4) # Current Signer for Manning Agent
-	MAN_Time_Last = models.DateTimeField() # Timestamp of last change
-	MAN_Who_Last = models.DateTimeField() # Who did the last change
-
-class OFFICIAL_SIGNERS(models.Model):
-	# 7 rows
-	OF_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	OF_KEY = models.CharField(max_length=4) # Signers Code e.g. DACB
-	OF_Full = models.CharField(max_length=24) # Signers Full Name
-	OF_Position = models.CharField(max_length=16) # Signers Official Position/Title
-	OF_TaxAcct = models.CharField(max_length=20) # Signers Tax Acct Number
-	OF_Time_Last = models.DateTimeField() # Timestamp of last change
-	OF_Who_Last = models.DateTimeField() # Who did the last change
-
 class VESSELS(models.Model):
 	# 34 rows
 	# Foreign Keys = ['Vessel Type', 'Principal', 'vequip']
@@ -505,6 +256,7 @@ class VESSELS(models.Model):
 	# P_KEY as foreign key of V_P_Key
 	V_P_KEY = models.CharField(max_length=6) # Principals of the Vessel
 	V_Registry = models.CharField(max_length=12) # Country of Registry
+	# CN_KEY as foreign key of V_CN_Key
 	V_CN_KEY = models.CharField(max_length=2) # Flag
 	V_RegNumber = models.CharField(max_length=16) # Official Registry Number
 	V_GRT = models.IntegerField() # Vessels GRT | grt
@@ -538,14 +290,6 @@ class VESSELS(models.Model):
 	V_Email_2 = models.CharField(max_length=28) # Email Address 2
 	V_Time_Last = models.DateTimeField() # Timestamp of last change
 	V_Who_Last = models.DateTimeField() # Who did the last change
-
-class VESSEL_CATEGORIES(models.Model):
-	# 5 rows
-	VC_D = models.CharField(max_length=1, null=True) # Delete Status (if D this record is deleted).
-	VC_KEY = models.CharField(max_length=4) # Vessel Category Code
-	VC_Full = models.CharField(max_length=26) # Description of Vessel Category
-	VC_Time_Last = models.DateTimeField() # Timestamp of last change
-	VC_Who_Last = models.DateTimeField() # Who did the last change
 
 class VESSEL_TYPE(models.Model):
 	# 5 rows
