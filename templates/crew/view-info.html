@@ -1,0 +1,553 @@
+{% extends 'crew/base.html' %}
+
+{% block nav %}
+	<div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <ul class="nav">
+	      <button class="ShowAll btn btn-info navbar-btn"> Show All </button>
+	      <button class="HideAll btn btn-danger navbar-btn"> Hide All </button>
+	    </ul>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+	    <ul class="nav navbar-nav navbar-right text-center text-uppercase">
+	      <li class="active"><a href="#bio-data">Bio Data</a></li>
+	      <li><a href="#service-records">Service Records</a></li>
+	      <li><a href="#documents-certificates">Documents and Certificates</a></li>
+	      <li><a href="#contracts">Contracts</a></li>
+	      <li><a href="#rank">Rank</a></li>
+	      <li><a href="#vessels">Vessels</a></li>
+	      <li><a href="#principals">Principals</a></li>
+	    </ul>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div id="multiOpenAccordion">
+	    <p id="back-top">
+	      <a><span></span></a>
+	    </p>
+	    <h3 id = 'bio-data'><a href="#">Bio Data</a></h3>
+	    <div>
+	    	<form class="form-horizontal">
+	      		<div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Code: </label> <i><u>{{  bio }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">UID: </label> <i><u>{{  bio.b_uid }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Nationality: </label> <i><u>{{  bio.country }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Last: </label> <i><u>{{  bio.last_name }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">First: </label> <i><u>{{  bio.first_name }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Middle: </label> <i><u>{{  bio.middle_name }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Rank: </label> <i><u>{{  bio.rank }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Last Ship: </label> <i><u>{{  bio.last_vessel }} | {{  vessel.vessel_type }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Availability: </label> <i><u>{{  bio.b_available }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Status: </label> <i><u>{{  bio.status }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Seperation Type: </label> <i><u>{{  bio.b_separation_type }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">ExCrew: </label> <i><u>{{  bio.b_ex_crew }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6"><label class="control-label">Nickname: </label> <i><u>{{  bio.b_nick_name }}</u></i></div>
+                    <div class="col-md-6"><label class="control-label">Email: </label> <i><a href="mailto:{{  bio.b_email_address }}">{{  bio.b_email_address }}</a></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">M.Status: </label> <i><u>{{  bio.b_marital_status }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Wife: </label> <i><u>{{  bio.b_wife_name }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Tax: </label> <i><u>{{  bio.b_tax_status }} | {{ bio.b_tax_acct }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Birthdate: </label> <i><u>{{  bio.b_birth_date }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Place: </label> <i><u>{{  bio.b_birth_place }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">BMI: </label> <i><u>{{  bio.b_bmi }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Wife Birthdate: </label> <i><u>{{  bio.b_birth_date }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Wife Works?: </label> <i><u>{{  bio.b_wife_job }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">SSS: </label> <i><u>{{  bio.b_sss }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6"><label class="control-label">Mother Language: </label> <i><u>{{  bio.b_mother_language }}</u></i></div>
+                    <div class="col-md-6"><label class="control-label">Pagibig: </label> <i><u>{{  bio.b_pagibig }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6"><label class="control-label">English: </label> <i><u>{{  bio.b_english }}</u></i></div>
+                    <div class="col-md-6"><label class="control-label">PhilHealth: </label> <i><u>{{  bio.b_phealth }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Highschool Graduate: </label> <i><u>{{  bio.b_hs_grad }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Date: </label> <i><u>{{  bio.b_hs_date }}</u></i></div> 
+                    <div class="col-md-4"><label class="control-label">Vocation: </label> <i><u>{{  bio.b_vocational }}</u></i></div> 
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Nautical Degree: </label> <i><u>{{  bio.b_nautical_degree }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Date: </label> <i><u>{{  bio.b_nautical_date }}</u></i></div> 
+                    <div class="col-md-4"><label class="control-label">School: </label> <i><u>{{  bio.b_nautical_school }}</u></i></div> 
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">Other Degree: </label> <i><u>{{  bio.b_other_degree }}</u></i></div>
+                    <div class="col-md-4"><label class="control-label">Date: </label> <i><u>{% if bio.b_other_date != None %}{{  bio.b_other_date }}{% endif %}</u></i></div> 
+                    <div class="col-md-4"><label class="control-label">School: </label> <i><u>{{  bio.b_other_school }}</u></i></div> 
+                </div>
+                <div class="form-group">
+                	<div class="col-md-12"><label class="control-label">Education Notes: </label> <i><u>{{  bio.b_educ_note_1 }}</u></i></div>
+                </div>
+                <div class="form-group">
+                	<div class="col-md-12"><label class="control-label">General Comments: </label> <i><u>{{  bio.b_comments }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><label class="control-label">ADDRESS: </label></div>
+                    <div class="col-md-4"><label class="control-label">CONTACT NUMBERS: </label> </div> 
+                    <div class="col-md-4"><label class="control-label">EMERGENCY ADDRESS: </label> </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><i><u>{{ bio.b_metro_addr_1 }}</u></i></div>
+                    <div class="col-md-4"><strong>Tel.1: </strong> <i><u>{{ bio.b_phone_1 }}</u></i></div> 
+                    <div class="col-md-4"><i><u>{{ bio.b_emergency_addr_1 }}</u></i></div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><i><u>{{ bio.b_metro_addr_2 }}</u></i></div>
+                    <div class="col-md-4"><strong>Tel.2 </strong> <i><u>{{ bio.b_phone_2 }}</u></i></div> 
+                    <div class="col-md-4"><i><u>{{ bio.b_emergency_addr_2 }}</u></i></div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><i><u>{{ bio.b_metro_addr_3 }}</u></i></div>
+                    <div class="col-md-4"><strong>Emerg: </strong> <i><u>{{ bio.b_emergency_phone }}</u></i></div> 
+                    <div class="col-md-4"><i><u>{{ bio.b_emergency_addr_3 }}</u></i></div> 
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4"><i><u>{{ bio.b_metro_addr_4 }}</u></i></div>
+                    <div class="col-md-4"></div> 
+                    <div class="col-md-4"><i><u>{{ bio.b_emergency_addr_4 }}</u></i></div> 
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6"><label class="control-label">EMERGENCY Person: </label> <i><u>{{  bio.b_emergency_name }}</u></i></div>
+                    <div class="col-md-6"><label class="control-label">Relation: </label> <i><u>{{  bio.b_emergency_relation }}</u></i></div>
+                </div>
+            </form> 
+		</div>
+		<h3 id = 'service-records'><a href="#">Service Records</a></h3>
+    	<div>
+      		<form class="form-horizontal">
+                <div class="form-group">
+                    <div class = "col-md-6 padding-negator">
+                      <div class="col-md-2"><label class="control-label">Contract: </label> </div>
+                      <div class="col-md-2"><label class="control-label">Vessel: </label> </div>
+                      <div class="col-md-2"><label class="control-label">Rank: </label> </div>
+                       <div class="col-md-2"><label class="control-label">Start: </label> </div>
+                      <div class="col-md-2"><label class="control-label">End: </label> </div>
+                      <div class="col-md-1"><label class="control-label">Days: </label> </div>
+                      <div class="col-md-1"><label class="control-label">W: </label> </div>
+                    </div>
+                    <div class = "col-md-6 padding-negator">
+                      
+                      <div class="col-md-2"><label class="control-label">Type: </label> </div>
+                      <div class="col-md-1"><label class="control-label">F1: </label> </div>
+                       <div class="col-md-2"><label class="control-label">GRT: </label> </div>
+                      <div class="col-md-2"><label class="control-label">Engine: </label> </div>
+                      <div class="col-md-2"><label class="control-label">H.Power: </label> </div>
+                      <div class="col-md-3"><label class="control-label">Company: </label> </div>
+                    </div>
+                </div>
+                {% for services in service %}
+	                <div class="form-group">
+	                    <div class = "col-md-6 padding-negator">
+	                      <div class="col-md-2"><i><u>{% if services.contract != 0 %}{{ services.contract }}{% endif  %}</u></i></div>
+	                      <div class="col-md-2"><i><u>{{ services.s_vsl_v_key }}</u></i></div>
+	                       <div class="col-md-2"><i><u>{{ services.s_rank_r_key }}</u></i></div>
+	                      <div class="col-md-2"><i><u>{{ services.s_start }}</u></i></div>
+	                      <div class="col-md-2"><i><u>{{ services.s_end }}</u></i></div>
+	                      <div class="col-md-1"><i><u>{{ services.days }}</u></i></div>
+                          <div class="col-md-1"><i><u>{{ services.s_why }}</u></i></div>
+	                    </div>
+	                    <div class = "col-md-6 padding-negator">	                      
+	                      <div class="col-md-2"><i><u>{{ services.s_type_vt_key }}</u></i></div>
+	                      <div class="col-md-1"><i><u>{{ services.s_cn_key }}</u></i></div>
+	                      <div class="col-md-2"><i><u>{{ services.s_grt }}</u></i></div>
+	                      <div class="col-md-2"><i><u>{{ services.s_engine }}</u></i></div>
+	                      <div class="col-md-2"><i><u>{{ services.s_horsepower }}</u></i></div>
+	                      <div class="col-md-3"><i><u>{{ services.s_principal }}</u></i></div>
+	                    </div>
+	                </div>
+                {% endfor %}
+            </form>
+		</div>
+    	<h3 id="documents-certificates"><a href="#">Documents and Certificates</a></h3>
+   		<div>
+   			<!-- <h4><label>Certicate Code: </label><i><u></u></i></h4> -->
+          <div class="row">
+            <div class="col-md-1"><label>Code</label></div>
+            <div class="col-md-4"><label>Certificate Name</label></div>
+            <div class="col-md-2"><label>Document Number</label></div>
+            <div class="col-md-2"><label>Issued</label></div>
+            <div class="col-md-2"><label>Expires</label></div>
+            <div class="col-md-1"><label>C/L</label></div>
+          </div>
+          {% for docs in doc %}
+	          <div class="row">
+	            <div class="col-md-1"><i><u>{{ docs.cert }}</u></i></div>
+	            <div class="col-md-4"><i><u>{{ docs.cert.c_full }}</u></i></div>
+	            <div class="col-md-2"><i><u>{{ docs.d_number }}</u></i></div>
+	            <div class="col-md-2"><i><u>{{ docs.d_issue }}</u></i></div>
+	            <div class="col-md-2"><i><u>{% if docs.d_expire != None %}{{ docs.d_expire }}{% endif %}</u></i></div>
+	            <div class="col-md-1">{{ docs.d_othercountry }}</div>
+	          </div>
+          {% endfor %}
+    	</div>      
+    	<h3 id="contracts"><a href="#">Contracts</a></h3>
+    	<div>
+	      	<h2>Last Contract: </h2>
+	      	<div class="row">
+		        <div class="col-md-2">Contract</div>
+		        <div class="col-md-1">Vessel</div>
+		        <div class="col-md-1">Rank</div>
+		        <div class="col-md-1">Principal</div>
+		        <div class="col-md-2">Manning Agent</div>
+		        <div class="col-md-2">Cont. Date</div>
+		        <div class="col-md-1">Duration</div>
+	      	</div>
+	      	{% for contracts in contract|slice:":1" %}
+	      	<div class="row">
+		        <div class="col-md-2"><a href="/crew/view-contract/{{ contracts.contract }}" target="_blank"><button class="btn-info contract-button">{{ contracts }}</button></a></div>
+		        <div class="col-md-1"><i><u>{{ contracts.vessel }}</u></i></div>
+		        <div class="col-md-1"><i><u>{{ contracts.rank }}</u></i></div>
+		        <div class="col-md-1"><i><u>{{ contracts.principal }}</u></i></div>
+		        <div class="col-md-2"><i><u>{{ contracts.manning_agent }}</u></i></div>
+		        <div class="col-md-2"><i><u>{{ contracts.con_contract_date }}</u></i></div>
+		        <div class="col-md-1"><i><u>{{ contracts.con_length }}</u></i> months</div>
+		    </div>
+		    {% endfor %}
+	      	<h3>Previous Contracts:</h3>
+			<div class="table-responsive contracts">
+				<table class="table table-striped">
+				  	<thead>
+					    <tr>
+							<td>Contract</td>
+							<td>Vessel</td>
+							<td>Rank</td>
+							<td>Principal</td>
+							<td>Manning Agent</td>
+							<td>Cont. Date</td>
+							<td>Duration</td>
+					    </tr>
+				  	</thead>
+				  	<tbody>
+				  		{% for contracts in contract|slice:"1:" %}
+					    <tr>
+							<td><a href="/crew/view-contract/{{ contracts.contract }}" target="_blank"><button class="btn-info contract-button">{{ contracts.con_unique }}</button></a></td>
+							<td><i><u>{{ contracts.vessel }}</u></i></td>
+							<td><i><u>{{ contracts.rank }}</u></i></td>
+							<td><i><u>{{ contracts.principal }}</u></i></td>
+							<td><i><u>{{ contracts.manning_agent }}</u></i></td>
+							<td><i><u>{{ contracts.con_contract_date }}</u></i></td>
+							<td><i><u>{{ contracts.con_length }}</u></i> months</td>
+					    </tr>
+					    {% endfor %}
+				  	</tbody>
+				</table>
+			</div>  
+    	</div>
+	    <h3 id="rank"><a href="#">Rank</a></h3>
+	    <div>
+	      	<form class="form-horizontal">
+	      		<div class="form-group">
+                    <div class="col-md-3"><label class="control-label">Rank Code: </label> <i><u>{{  rank }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3"><label class="control-label">Description: </label> <i><u>{{  rank.r_full }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3"><label class="control-label">Greek Description: </label> <i><u>{{  rank.r_grk_desc }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3"><label class="control-label">Sort: </label> <i><u>{{  rank.r_sort }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3"><label class="control-label">Officer/Crew: </label> <i><u>{{  rank.r_officer }}</u></i></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3"><label class="control-label">Tax Category: </label> <i><u>{{  rank.r_tc_key }}</u></i></div>
+                </div>
+            </form>
+	    </div>
+	    <h3 id="vessels"><a href="#">Vessels</a></h3>
+	    <div>
+	    	<form class="form-horizontal">
+	      		<div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Ship Code</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Main Category</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_main_cat }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Ship Type</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.vessel_type }}</u> | {{ vessel_type.vt_full }}</i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Description</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_full }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Owner Ship</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_owner_ship }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Status</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_status }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                    	<div class="col-md-4"><strong>End </strong> : <i><u>{% if vessel.v_end != None %}{{ vessel.v_end }}{% endif %}</u></i></div>
+                    	<div class="col-md-8"><strong>Reason </strong> : <i><u>{{ vessel.v_reason }}</u></i></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Principal</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.principal }}</u> | {{  principal.p_full }}</i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Call Sign</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_callsign }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Registry</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_registry }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Flag</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_cn_key }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>Off.Reg.No</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_regnumber }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                    	<div class="col-md-3"><strong>IMO Number</strong></div>
+                    	<div class="col-md-8">: <i><u>{{  vessel.v_imo }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>GRT</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_grt }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>NRT </strong> : <i><u>{{ vessel.v_nrt }}</u></i></div>
+                        <div class="col-md-8"><strong>DWT </strong> : <i><u>{{ vessel.v_dwt }}</u></i></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Engine Type</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_engine }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>TFS Fleet </strong> : <i><u>{{ vessel.v_tfs_fleet }}</u></i></div>
+                        <div class="col-md-8"><strong>TFS Ship </strong> : <i><u>{{ vessel.v_tfs_ship }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Horsepower</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_horsepower }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Email 1</strong></div>
+                        <div class="col-md-8">: <i><a href="mailto:{{  vessel.v_email_1 }}">{{  vessel.v_email_1 }}</a></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Email 2</strong></div>
+                        <div class="col-md-8">: <i><a href="mailto:{{  vessel.v_email_2 }}">{{  vessel.v_email_2 }}</a></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Class</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_class }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">---------- Notable Equipments ----------</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Where built</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_yard }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong><!-- 1) --> Equipment 1 </strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_equip_1 }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Yearbuilt</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_yearbuilt }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong><!-- 2) --> Equipment 2 </strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_equip_2 }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Trading route</strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_trades }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong><!-- 3) --> Equipment 3 </strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_equip_3 }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Unmanned? </strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_ums }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong><!-- 4) --> Equipment 4 </strong></div>
+                        <div class="col-md-8">: <i><u>{{  vessel.v_equip_4 }}</u></i></div>
+                    </div>
+                </div>
+            </form>
+	    </div>
+	    <h3 id="principals"><a href="#">Principals</a></h3>
+	    <div>
+            <form class="form-horizontal">
+	           <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Code </strong></div>
+                        <div class="col-md-8">: <i><u>{{  principal }}</u></i></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-3"><strong>Name </strong></div>
+                        <div class="col-md-8">: <i><u>{{  principal.p_full }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Master Principal</strong></div>
+                        <div class="col-md-8">: <i><u>{{  principal.p_master_p_key }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Accreditated No.</strong></div>
+                        <div class="col-md-8">: <i><u>{{  principal.p_accredno }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Address</strong></div>
+                        <div class="col-md-8">: <i><u>{{  principal.p_addr1 }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong></strong></div>
+                        <div class="col-md-8">&nbsp;  <i><u>{{  principal.p_addr2 }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong></strong></div>
+                        <div class="col-md-8">&nbsp;  <i><u>{{  principal.p_addr3 }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Social Sec. No</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_sss }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Law City & Country</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_lawcountry }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Telephone No</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_telephone }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-4"><strong>Email Address</strong></div>
+                        <div class="col-md-8">:  <i><a href="mailto:{{ principal.p_email_address }}">{{  principal.p_email_address }}</a></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_A</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_a }}</u></i></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_D</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_d }}</u></i></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_G</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_g }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_B</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_b }}</u></i></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_E</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_e }}</u></i></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Expenses</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_expenses }}</u></i></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_C</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_c }}</u></i></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-3"><strong>Acct_F</strong></div>
+                        <div class="col-md-8">:  <i><u>{{  principal.p_acct_category_f }}</u></i></div>
+                    </div>
+                </div>
+            </form>
+	    </div>
+  	</div>	
+{% endblock %}

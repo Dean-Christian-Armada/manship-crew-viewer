@@ -1,0 +1,170 @@
+{% extends 'crew/base.html' %}
+
+{% block body %}
+	<form class="form-horizontal">
+		<div class="form-group">
+		  <div class="col-md-2"><label class="control-label">Contract: </label> <i><u>{{ contract }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Seaman: </label> <i><u>{{ bio.code }}</u> | {{ bio.last_name }} {{ bio.first_name }}</i></div>
+		  <div class="col-md-2"><label class="control-label">Nationality: </label> <i><u>{{ bio.country }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><label class="control-label">Ship: </label> <i><u>{{ contract.vessel }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-6"><label class="control-label">Principal: </label> <i><u>{{ contract.principal }}</u> | {{ principal.p_full }}</i></div>
+		  <div class="col-md-4"><label class="control-label">Manning Agent: </label> <i><u>{{ contract.manning_agent }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Rank: </label> <i><u>{{ contract.rank }}</u> | {{ rank.r_full }}</i></div>
+		  <div class="col-md-3"><label class="control-label">Wages Scale: </label> <i><u>{{ contract.con_w_cs_key }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Taxes Subcat: </label> <i><u>{{ contract.con_t_cs_key }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Crew Categ.: </label> <i><u>{{ contract.crew_category }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">OEC Number: </label> <i><u>{{ contract.con_oec }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">E- Receipt: </label> <i><u>{{ contract.con_ereceipt }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">POEA Processed Data: </label> <i><u>{{ contract.con_poea_date }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">CBA: </label> <i><u>{{ contract.con_cba }}</u></i></div>
+		</div>
+		<hr>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">PDOS Date: </label> <i><u>{{ contract.con_pdos }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Last Medical Date: </label> <i><u>{{ contract.con_date_fitness }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">BMI: </label> <i><u>{{ contract.con_bmi }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Cash Advance from MSMI: </label> <i><u>{{ contract.con_cash_advance }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Cont. Date: </label> <i><u>{{ contract.con_contract_date }}</u></i></div>
+		  <div class="col-md-2"><label class="control-label">Duration: </label> <i><u>{{ contract.con_length }}</u> | months</i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-6"><label class="control-label">Signon: </label> <i><u>{{ contract.con_money_beg }}</u> | When principal starts paying</i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Embarkat: </label> <i><u>{{ contract.con_embark }}</u></i></div>
+		  <div class="col-md-8"><label class="control-label">Comment: </label> <i><u>{{ contract.con_embark_con }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Join Vessel: </label> <i><u>{{ contract.con_join }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">At: </label> <i><u>{{ contract.con_join_where }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Left Vessel: </label> <i><u>{{ contract.con_left }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">at: </label> <i><u>{{ contract.con_left_where }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Disembark: </label> <i><u>{{ contract.con_disembark }}</u></i></div>
+		  <div class="col-md-8"><label class="control-label">Comment: </label> <i><u>{{ contract.con_disembark_com }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Signoff: </label> <i><u>{{ contract.con_money_end }}</u></i></div>
+		  <div class="col-md-4"><label class="control-label">Reason of signoff: </label> <i><u>{{ contract.con_reason_signoff }}</u></i></div>
+		</div>
+		<hr>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Wage Date: </label> <i><u>{{ wage.w_date }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Currency: </label> <i><u>{{ contract.con_m_money }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Hours/Week: </label> <i><u>{{ contract.con_hours_week }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Min.O/T Hours/Month: </label> <i><u>{{ contract.con_min_mth_ot_hours }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Mon. Extr1: </label> <i><u>{{ contract.con_mth_extra1 }}</u></i></div>
+		  <div class="col-md-4"><label class="control-label">Description: </label> <i><u>{{ contract.con_mth_extra1_descr }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Mon. Extr2: </label> <i><u>{{ contract.con_mth_extra2 }}</u></i></div>
+		  <div class="col-md-4"><label class="control-label">Description: </label> <i><u>{{ contract.con_mth_extra2_descr }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Seniority: </label> <i><u>{{ contract.con_seniority }}</u> | years in company</i></div>
+		  <div class="col-md-3"><label class="control-label">Seniority Changes: </label> <i><u>{{ contract.con_senior_date }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Amount: </label> <i><u>{{ senior_amount }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-3"><label class="control-label">Seniority: </label> <i><u>{{ contract.con_seniority_rank }}</u> | years in rank</i></div>
+		  <div class="col-md-3"><label class="control-label">Seniority in rank changes: </label> <i><u>{{ contract.con_senior_rank_date }}</u></i></div>
+		  <div class="col-md-3"><label class="control-label">Amount: </label> <i><u>{{ senior_rank_amount }}</u></i></div>
+		</div>
+		<hr>
+		<div class="form-group">
+		  <div class="col-md-2"><label class="control-label">Description </label></div>
+		  <div class="col-md-2"><label class="control-label">Amount </label></div>
+		  <div class="col-md-2"><label class="control-label">Description</label></div>
+		  <div class="col-md-2"><label class="control-label">Amount </label></div>
+		  <div class="col-md-2"><label class="control-label">Description </label></div>
+		  <div class="col-md-2"><label class="control-label">Amount </label></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>Basic Salary: </strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_mth_basic }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_8 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_8 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_16 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_16 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_1 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_1 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_9 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_9 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_17 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_17 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_2 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_2 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_10 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_10 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_18 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_18 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_3 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_3 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_11 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_11 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_19 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_19 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_4 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_4 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_12 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_12 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_20 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_20 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_5 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_5 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_13 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_13 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_21 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_21 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_6 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_6 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_14 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_14 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_22 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_22 }}</u></i></div>
+		</div>
+		<div class="form-group">
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_7 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_7 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_15 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_15 }}</u></i></div>
+		  <div class="col-md-2"><strong>{{ contract.con_comp_name_23 }}</strong></div>
+		  <div class="col-md-2"><i><u>{{ contract.con_comp_amnt_23 }}</u></i></div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		$(".col-md-2").each(function(){
+            text = $(this).text();
+            if(text == 0){
+                $(this).text('-');
+            }
+        });
+	</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+.yourlabs-autocomplete{
+  max-height: 250px;
+  overflow: auto;
+}
+.yourlabs-autocomplete .choice{
+  display: inline !important;
+}
+.yourlabs-autocomplete  td:nth-of-type(2), td:nth-of-type(3){
+  text-align: left;
+  width: 80px;
+}

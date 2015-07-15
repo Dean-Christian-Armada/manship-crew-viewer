@@ -4,7 +4,7 @@
 <head>
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
-<link rel="stylesheet" type="text/css" href="">
+<link rel="stylesheet" href="{% static 'admin/css/main.css' %}">
 {% block extrastyle %}{% endblock %}
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
@@ -46,7 +46,7 @@
                 {% if user.has_usable_password %}
                 <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
                 {% endif %}
-                <a href="{% url 'logout' %}">{% trans 'Log out' %}</a>
+                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
             {% endblock %}
         </div>
         {% endif %}
@@ -87,13 +87,5 @@
 </div>
 <!-- END Container -->
     {% include 'admin/javascripts.html' %}
-    <script type="text/javascript">
-    // if (!$) {
-    //     $ = django.jQuery;
-    //     $('.view-info').click(function(){
-    //         alert('Armada');
-    //     });
-    // }
-    </script>
 </body>
 </html>
