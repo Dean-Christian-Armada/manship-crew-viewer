@@ -75,6 +75,20 @@ function showRelatedObjectPopup(triggeringLink, widthpercentage, heightpercentag
     return false;
 }
 
+function picturePopup(triggeringLink){
+    
+    w=screen.width;
+    h=screen.height;
+
+    l=w*0.45;
+
+    t=h*0.35;
+
+    var href = triggeringLink.href;   
+    setTimeout(function(){ win = window.open(href, name, 'height=167,width=217,left='+l+',top='+t+',resizable=no,scrollbars=no'); win.focus(); }, 1);      
+    return false;
+}
+
 function dismissRelatedObjectPopup() {
    // alert(win.closed);
    if(!win.closed){
@@ -145,13 +159,3 @@ function dismissDeleteRelatedObjectPopup(win, objId) {
 // Kept for backward compatibility
 showAddAnotherPopup = showRelatedObjectPopup;
 dismissAddAnotherPopup = dismissAddRelatedObjectPopup;
-
-
-// function showRelatedObjectPopup(triggeringLink) {
-//     var name = triggeringLink.id.replace(/^(change|add|delete)_/, '');
-//     name = id_to_windowname(name);
-//     var href = triggeringLink.href;
-//     var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
-//     win.focus();
-//     return false;
-// }

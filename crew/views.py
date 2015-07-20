@@ -1,10 +1,14 @@
-from django.db.models import Q
+import os
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from . models import *
 
 # Create your views here.
-
+@login_required
 def info(request, code):
     bio = Bio.objects.get(b_d='', code=code)
     service = Service.objects.filter(s_d='', code=code).order_by('-s_start')
@@ -25,13 +29,22 @@ def info(request, code):
                     'rank':rank, 'vessel':vessel, 'principal':principal, 'vessel_type':vessel_type }
     # return HttpResponse("Hello %s" % code)
     return render(request, template, context_dict)
-
+@login_required
 def picture(request, code):
-    template = ''
-    context_dict = {}
-    return HttpResponse("Hello %s waiting for picture request" % code)
-    # return render(request, template, context_dict)
+    template = 'crew/view-picture.html'
+    # media = settings.MEDIA_URL
+    picture = os.listdir('media')
+    picture = [ x for x in picture if code in x]
+    picture = sorted(picture, reverse=1)
+    if not picture:
+        picture = '9999.DEFAULT.pix'
+    else:
+        picture = picture[0]
 
+    context_dict = {'picture':picture}
+    # return HttpResponse("Hello %s waiting for picture request" % code)
+    return render(request, template, context_dict)
+@login_required
 def contract(request, contract):
     contract = Contract.objects.get(contract=contract)
     wage = contract.wage
@@ -63,13 +76,43 @@ def contract(request, contract):
 
 def navigation_autocomplete(request):
     q = request.GET.get('q', '')
+    principal = ''
+    vessel_type = ''
+    last_vessel = ''
+    rank = ''
+    status = ''
 
-    template='crew/autocomplete.html'
-    context_dict = {}
-    context_dict['bios'] = Bio.objects.filter(
-        Q(code__icontains=q, b_d='') |
-        Q(first_name__icontains=q, b_d='') |
-        Q(middle_name__icontains=q, b_d='') |
-        Q(last_name__icontains=q, b_d='')
-    ).distinct()
-    return render(request, template, context_dict)
+    if q:
+        code = Q(code__icontains=q, b_d='')
+        first_name = Q(first_name__icontains=q, b_d='')
+        middle_name = Q(middle_name__icontains=q, b_d='')
+        last_name = Q(last_name__icontains=q, b_d='')
+        
+        bios = Bio.objects.filter(
+            code |
+            first_name |
+            middle_name |
+            last_name
+        ).distinct() 
+
+        if request.GET.get('principal'):
+            principal = request.GET.get('principal')
+            bios = bios.filter(last_vessel__principal=principal)
+        if request.GET.get('vessel_type'):
+            vessel_type = request.GET.get('vessel_type')
+            bios = bios.filter(last_vessel__vessel_type=vessel_type)
+        if request.GET.get('last_vessel'):
+            last_vessel = request.GET.get('last_vessel')
+            bios = bios.filter(last_vessel=last_vessel)
+        if request.GET.get('rank'):
+            rank = request.GET.get('rank')
+            bios = bios.filter(rank=rank)
+        if request.GET.get('status'):
+            status = request.GET.get('status')
+            bios = bios.filter(status=status)
+
+        template='crew/autocomplete.html'
+        context_dict = {'bios': bios}
+        return render(request, template, context_dict)
+    else:
+        pass

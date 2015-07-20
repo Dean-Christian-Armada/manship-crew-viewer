@@ -1,0 +1,60 @@
+Admin Customization:
+	(July 16, 2015)
+	- main.js is created
+		-- Location of personally made javascript and jquery
+	- javascript variable containers
+		-- base.html
+			--- All are located on the footer
+	- Search is changed
+		-- base.html
+			--- declared variables for principal, vessel_type, last_vessel, rank, status
+				---- to declare parameter values
+				---- values came from request.GET
+			--- search-url has now parameters
+		-- crew/views.py
+			--- navigation_autocomplete(request)
+				---- sub-filters for 'principal', 'vessel_type', 'last_vessel', 'rank', 'status' on the Bio object will be made when a request is made
+	- Filter is changed
+		-- admin/filter.html
+			--- changed the javascript
+				---- used regex to remove searchparameter on the opt variable of go_from_select function 
+				---- (opt = opt.replace(/q=(.)*&/, '');)
+	- Tooltip for filter and search
+		-- search_form.html
+			-- insert title and data-toggle on the input $("#search") box
+		-- change_list.html
+			-- insert title and data-toggle on $("#changelist-filter")
+		-- base.html
+			-- Insert the cdn external source of bootstrap javascript on the footer
+				--- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		-- main.js
+			-- $('[data-toggle="tooltip"]').tooltip({ html: true });
+				--- bootstrap js code for tooltip
+	- import-export
+		-- settings.py
+			--- 'import_export' in INSTALLED_APPS
+	- ascii code
+		-- models.py
+			--- def __str__(self):
+					return self.name.encode('ascii', errors='replace')
+			--- or simply just make __str__ into __unicode__
+
+Notes:
+	(July 16, 2015)
+	PEP 8 Python Coding Standards
+		- Classes are always CapWords Convetion
+		- Attributes separated by underscores
+		- Second attributes should have trailing underscores 
+			-- _dean
+	import-export
+		- Always use Resource after model on the inherited modelresource class 
+	regex date example
+		- ([0-9]{2})(-)([0-9]{2})(-)([0-9]{2})
+			-- Effective for '09.Jul.15' format
+			-- 20$5-$3-$1
+
+
+Third-party-packages:
+	(July 16, 2015)
+	import-export
+		- To import application excel data

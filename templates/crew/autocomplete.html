@@ -1,14 +1,14 @@
 {% if bios %}
 	{% for bio in bios %}
-	<table>
-		<tr>
-			<td><a class="" href="?q={{ bio }}">{{ bio }}: </a></td>
-			<td><a class="" href="?q={{ bio.first_name }}">{{ bio.first_name }} </a></td>
-			<td><a class="" href="?q={{ bio.middle_name }}">{{ bio.middle_name }} </a></td>
-			<td><a class="" href="?q={{ bio.last_name }}">{{ bio.last_name }} </a></td>
-		</tr>
-	</table>	
+		<table>
+			<tr>
+				<td><a class="" href="?q={{ bio }}">{{ bio }}: </a></td>
+				<td><a class="" href="?q={{ bio.first_name }}">{{ bio.first_name }} </a></td>
+				<td><a class="" href="?q={{ bio.middle_name }}">{{ bio.middle_name }} </a></td>
+				<td><a class="" href="?q={{ bio.last_name }}">{{ bio.last_name }} </a></td>
+			</tr>
+		</table>
 	{% endfor %}
 {% else %}
-
+	<strong><center>NO RESULTS FOUND</center></strong>
 {% endif %}

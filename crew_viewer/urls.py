@@ -15,10 +15,13 @@ Including another URLconf
 """
 
 import autocomplete_light
-from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import HttpResponse
+from django.conf import settings
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls import include, url, patterns
+from django.conf.urls.static import static
 from website import views
 
 autocomplete_light.autodiscover()
@@ -39,3 +42,7 @@ urlpatterns = [
     url(r'^$', include('website.urls', namespace='website')),
     url(r'^crew/', include('crew.urls', namespace='crew_view')),
 ]
+
+# Enables Media
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

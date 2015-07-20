@@ -539,7 +539,7 @@ class Bio(models.Model):
     view_info.short_description = ''
 
     def view_picture(self):
-        return mark_safe("<a href='/crew/view-picture/%s' onclick='return showAddAnotherPopup(this, 0.3, 0.3);'><button type='button' class='btn btn-warning view-pic'>View Picture</button></a>" % self.code)
+        return mark_safe("<a href='/crew/view-picture/%s' onclick='return picturePopup(this, .16, 0.22);'><button type='button' class='btn btn-warning view-pic'>View Picture</button></a>" % self.code)
     view_picture.short_description = ''
 
 class Wage(models.Model):

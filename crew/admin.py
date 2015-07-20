@@ -247,4 +247,4 @@ class BioAdmin(admin.ModelAdmin):
 
 admin.site.register(Bio, BioAdmin)
 # Removes the get actions dropdown select above the table
-admin.site.disable_action('delete_selected')
+# admin.site.disable_action('delete_selected')

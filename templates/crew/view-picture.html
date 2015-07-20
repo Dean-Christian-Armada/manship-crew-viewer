@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<body bgcolor="#ccc">
+	<img src="{{MEDIA_URL}}{{ picture }}">	<span id="demo"></span>
+</body>
+
+<script type="text/javascript">
+	document.addEventListener("keydown", Escape, false);
+
+	function Escape(event){
+		if(event.which == 27){
+          window.close();
+        }
+	}
+</script>

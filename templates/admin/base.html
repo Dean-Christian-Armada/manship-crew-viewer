@@ -86,6 +86,21 @@
     {% block footer %}<div id="footer"></div>{% endblock %}
 </div>
 <!-- END Container -->
-    {% include 'admin/javascripts.html' %}
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    // Global Variables defined from python urls
+    var principal = '';
+    var vessel_type = '';
+    var last_vessel = '';
+    var rank = '';
+    var status = '';
+    {% if 'principal' in request.GET %}var principal = '&principal={{ request.GET.principal }}';{% endif %}
+    {% if 'vessel_type' in request.GET %}var vessel_type = '&vessel_type={{ request.GET.vessel_type }}';{% endif %}
+    {% if 'last_vessel' in request.GET %}var last_vessel = '&vessel={{ request.GET.last_vessel }}';{% endif %}
+    {% if 'rank' in request.GET %}var rank = '&rank={{ request.GET.rank }}';{% endif %}
+    {% if 'status' in request.GET %}var status = '&status={{ request.GET.status }}';{% endif %}
+    var search_view = '{% url "crew_view:navigation_autocomplete" %}?'+principal+vessel_type+last_vessel+rank+status; // Django Autocomplete Light
+</script>
+<script type="text/javascript" src="{% static 'admin/js/main.js' %}"></script>
 </body>
 </html>

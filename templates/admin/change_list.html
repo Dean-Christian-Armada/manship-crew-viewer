@@ -74,7 +74,7 @@
 
       {% block filters %}
         {% if cl.has_filters %}
-          <div id="changelist-filter">
+          <div id="changelist-filter" data-toggle="tooltip" data-placement="left" title="Please take note that the selection of each filters integrates once a filter value is selected on any filters <br /><br />">
             <h2>{% trans 'Filter' %}</h2>
             {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
           </div>
@@ -95,17 +95,4 @@
       </form>
     </div>
   </div>
-<script type="text/javascript">
-  $('#searchbar').keydown(function(e){ 
-    if( e.which == '13' ){
-      $("#changelist-search").submit(); 
-    }
-  });
-  $('#searchbar').yourlabsAutocomplete({
-    url: '{% url "crew_view:navigation_autocomplete" %}',
-      choiceSelector: 'a',
-  }).input.bind('selectChoice', function(e, choice, autocomplete) {
-      setTimeout( function(){ window.location.href = choice.attr('href'); }, 500);
-  });
-</script>  
 {% endblock %}
