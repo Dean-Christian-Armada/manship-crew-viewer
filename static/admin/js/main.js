@@ -7,7 +7,9 @@ $('#searchbar').keydown(function(e){
 	  $("#changelist-search").submit(); 
 	}
 });
-$('#searchbar').yourlabsAutocomplete({
+$("#searchbar").attr("class", search_class)
+$("#searchbar").attr("data-original-title", title)
+$("."+search_class).yourlabsAutocomplete({
 	url: search_view,
   choiceSelector: 'a',
 }).input.bind('selectChoice', function(e, choice, autocomplete) {

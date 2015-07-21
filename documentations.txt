@@ -3,22 +3,29 @@ Admin Customization:
 	- main.js is created
 		-- Location of personally made javascript and jquery
 	- javascript variable containers
-		-- base.html
+		-- admin/base.html
 			--- All are located on the footer
 	- Search is changed
-		-- base.html
+		-- admin/base.html
 			--- declared variables for principal, vessel_type, last_vessel, rank, status
 				---- to declare parameter values
 				---- values came from request.GET
 			--- search-url has now parameters
+			(July 20, 2015)
+			--- search parameters is more dynamic and integrated on the apps
+
 		-- crew/views.py
 			--- navigation_autocomplete(request)
 				---- sub-filters for 'principal', 'vessel_type', 'last_vessel', 'rank', 'status' on the Bio object will be made when a request is made
+			(July 20, 2015)
+			--- navigation_autocomplete with conditional regarding apps
 	- Filter is changed
 		-- admin/filter.html
 			--- changed the javascript
 				---- used regex to remove searchparameter on the opt variable of go_from_select function 
 				---- (opt = opt.replace(/q=(.)*&/, '');)
+		-- website/admin.py
+			--- class AgeFilter is used to sort by group age
 	- Tooltip for filter and search
 		-- search_form.html
 			-- insert title and data-toggle on the input $("#search") box

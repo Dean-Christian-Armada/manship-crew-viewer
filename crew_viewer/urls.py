@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     # url(r'^$', 'login.views.home', name='home'),
     # url(r'^$', views.home, name='home'),
-    url(r'^$', include('website.urls', namespace='website')),
+    url(r'^', include('website.urls', namespace='website')),
     url(r'^crew/', include('crew.urls', namespace='crew_view')),
 ]
 

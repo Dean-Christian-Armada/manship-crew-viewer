@@ -1,0 +1,18 @@
+{% if applications %}
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Company</th>
+			<th>Remarks</th>
+		</tr>
+	{% for application in applications %}
+		<tr>
+			<td><a class="" href="?q={{ application }}">{{ application }}: </a></td>
+			<td><a class="" href="?q={{ application.present_company }}">{{ application.present_company }} </a></td>
+			<td><a class="" href="?q={{ application.remarks }}">{{ application.remarks }} </a></td>
+		</tr>
+	{% endfor %}
+	</table>
+{% else %}
+	<strong><center>NO RESULTS FOUND</center></strong>
+{% endif %}

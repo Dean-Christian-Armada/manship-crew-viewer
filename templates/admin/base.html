@@ -89,17 +89,55 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     // Global Variables defined from python urls
+    // app_label gives the app parameter
     var principal = '';
     var vessel_type = '';
     var last_vessel = '';
     var rank = '';
     var status = '';
-    {% if 'principal' in request.GET %}var principal = '&principal={{ request.GET.principal }}';{% endif %}
-    {% if 'vessel_type' in request.GET %}var vessel_type = '&vessel_type={{ request.GET.vessel_type }}';{% endif %}
-    {% if 'last_vessel' in request.GET %}var last_vessel = '&vessel={{ request.GET.last_vessel }}';{% endif %}
-    {% if 'rank' in request.GET %}var rank = '&rank={{ request.GET.rank }}';{% endif %}
-    {% if 'status' in request.GET %}var status = '&status={{ request.GET.status }}';{% endif %}
-    var search_view = '{% url "crew_view:navigation_autocomplete" %}?'+principal+vessel_type+last_vessel+rank+status; // Django Autocomplete Light
+    var url = '';
+    var us_visa = '' 
+    var position = ''
+    var vessel_type = '' 
+    var availability = '' 
+    var app_source = '' 
+    var principal = '' 
+    var is_active = '' 
+    var age = '' 
+    var time_indicator = '' 
+    var length_rank = '' 
+    var params = '';
+    var app_label = "{{ opts.app_label }}";
+    var search_class = "search-"+app_label
+
+    // Conditionals for dynamic search results integrated with filter
+    if(app_label == 'crew'){
+        {% if 'principal' in request.GET %}var principal = '&principal={{ request.GET.principal }}';{% endif %}
+        {% if 'vessel_type' in request.GET %}var vessel_type = '&vessel_type={{ request.GET.vessel_type }}';{% endif %}
+        {% if 'last_vessel' in request.GET %}var last_vessel = '&vessel={{ request.GET.last_vessel }}';{% endif %}
+        {% if 'rank' in request.GET %}var rank = '&rank={{ request.GET.rank }}';{% endif %}
+        {% if 'status' in request.GET %}var status = '&status={{ request.GET.status }}';{% endif %}
+        title = "Please take note that this searchbox is for searching codes and names only and will integrate with the filter when a filter is made.<br />  <br />Type a letter then click among the dropdown composed of code, last name, middle name and first name."
+        params = principal+vessel_type+last_vessel+rank+status;
+        url = '{% url "crew_view:navigation_autocomplete" %}?';
+    }else{
+        {% if 'us_visa' in request.GET %}var us_visa = '&us_visa={{ request.GET.us_visa }}';{% endif %}
+        {% if 'position' in request.GET %}var position = '&position={{ request.GET.position }}';{% endif %}
+        {% if 'vessel_type' in request.GET %}var vessel_type = '&vessel_type={{ request.GET.vessel_type }}';{% endif %}
+        {% if 'availability' in request.GET %}var availability = '&availability={{ request.GET.availability }}';{% endif %}
+        {% if 'app_source' in request.GET %}var app_source = '&app_source={{ request.GET.app_source }}';{% endif %}
+        {% if 'principal' in request.GET %}var principal = '&principal={{ request.GET.principal }}';{% endif %}
+        {% if 'is_active' in request.GET %}var is_active = '&is_active={{ request.GET.is_active }}';{% endif %}
+        {% if 'age' in request.GET %}var age = '&age={{ request.GET.age }}';{% endif %}
+        {% if 'time_indicator' in request.GET %}var time_indicator = '&time_indicator={{ request.GET.time_indicator }}';{% endif %}
+        {% if 'length_rank' in request.GET %}var length_rank = '&length_rank={{ request.GET.length_rank }}';{% endif %}
+        title = "Please take note that this searchbox is for searching names, companies and remarks only and will integrate with the filter when a filter is made.<br />  <br />Type a letter then click among the dropdown composed of names, companies and remarks."
+        params = us_visa+position+vessel_type+availability+app_source+principal+is_active+age+time_indicator+length_rank; 
+        url = '{% url "website:navigation_autocomplete" %}?';
+    }
+        
+    // search_view defines the url of the view method of the django autocomplete light
+    var search_view = url+params; // Django Autocomplete Light
 </script>
 <script type="text/javascript" src="{% static 'admin/js/main.js' %}"></script>
 </body>

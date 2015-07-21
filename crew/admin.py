@@ -4,7 +4,7 @@ import urllib2
 # from django import forms
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from . models import Bio, Cert, Contract, Country, Doc, Principal, Rank, Service, Vessel, Vtype
+from . models import *
 # from django.contrib.admin.helpers import ActionForm
 # from crew_viewer.middlewares import AdminMiddleWare
 
