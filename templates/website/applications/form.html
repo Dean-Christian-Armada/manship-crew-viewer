@@ -1,0 +1,147 @@
+{# load bootstrap3 #}
+{% load widget_tweaks %}
+
+<form class="form-horizontal" method="post" action="">
+	<div class="modal-body">
+    {% csrf_token %}
+    <div class="form-group">
+    {% for primary_detail in primary_details %}
+      <div class="col-md-4">
+        <label for="{{ primary_detail.id_for_label }}" class="control-label">{{ primary_detail.label }}: </label> 
+        {{ primary_detail|add_class:"form-control"   }}
+        {{ primary_detail.errors }}
+      </div>  
+    {% endfor %}
+    </div>
+    <div class="form-group">
+      <div class="col-md-4">
+        <label class="control-label">
+          Rank Duration:
+        </label>
+        <div class="col-md-6 padding-negator">{{ secondary_details.num_years_rank|add_class:"form-control" }}</div>
+        <div class="col-md-6 padding-negator">{{ secondary_details.time_indicator|add_class:"form-control" }}</div>
+         {{ secondary_details.num_years_rank.errors }}
+      </div>
+      <div class="col-md-4">       
+        <label class="control-label" for="{{ secondary_details.age.id_for_label }}">
+          {{ secondary_details.age.label }}:
+        </label>
+        {{ secondary_details.age|add_class:"form-control" }}
+        {{ secondary_details.age.errors }} 
+      </div>
+      <div class="col-md-4">
+        <label class="control-label" for="{{ secondary_details.gross_tonnage.id_for_label }}">
+          {{ secondary_details.gross_tonnage.label }}:
+        </label>
+        {{ secondary_details.gross_tonnage|add_class:"form-control" }}
+        {{ secondary_details.gross_tonnage.errors }}        
+      </div>
+    </div>
+    <hr>
+    <div class="form-group with-others">
+      {% for tertiary_detail in tertiary_details %}   
+        
+        <div class="col-md-4">
+          <label class="control-label" for="{{ tertiary_detail.id_for_label }}">{{ tertiary_detail.label }}</label>
+        </div>
+        <div class="col-md-1">
+          <label class="control-label">:</label>
+        </div>
+        <div class="col-md-5 {{ tertiary_detail.id_for_label }}">
+           {{ tertiary_detail|add_class:"form-control"   }}
+        </div>
+        <div class="col-md-1">
+          <label class="control-label others {{ tertiary_detail.id_for_label }} {{ tertiary_detail.name }}"><a href = "#">Others</a></label>
+        </div>
+        <div class="col-md-12">
+          {{ tertiary_detail.errors }}
+        </div>  
+      {% endfor %}
+    </div>
+    <div class="form-group">  
+      <div class="col-md-8">
+        <div class="col-md-4 padding-negator">       
+          <label class="control-label" for="{{ secondary_details.age.id_for_label }}">
+            {{ secondary_details.referred_by.label }}:
+          </label>
+        </div>
+        <div class="col-md-4 padding-negator">
+          {{ secondary_details.referred_by|add_class:"form-control" }}
+        </div>  
+      </div>      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" id="test">TEST!</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" id = "submit-application" class="btn btn-primary " name="submit">
+        Submit Application
+      </button>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+  // $("#test").click(function(){
+  //   mymodal = $("#myModal").height();
+  //   alert(mymodal);
+  // });
+	$(".modal-content").on("click", "label.others", function(){
+      id = $(this).attr("class").split(' ')[2];
+		  name = 	$(this).attr("class").split(' ')[3];
+      $("div."+id).html("<input type = 'text' id='"+id+"' class='form-control' name='"+name+"' data-toggle='tooltip' title='Please enter values that are not among the options or click \"Refresh Selections\" on the top of the popup' >");
+      $('[data-toggle="tooltip"]').tooltip({ html: true });
+      $("input#"+id).focus();
+      $(this).css('display', 'none');
+      $(".refresh").html("<button class='btn btn-warning refresh'>Refresh selections</button>");
+  });
+  $(".modal-content").on("click", "button.refresh", function(){
+  	$.ajax({ url: refresh_url, success: function(data){
+  		$(".with-others").html(data);
+  	}});
+  	$(this).remove();
+    $('.modal').focus();
+  });
+  $(".modal-footer").on("click", "#submit-application", function(){
+    array = [ 'first_name','last_name','contact_number','num_years_rank','time_indicator', 'age', 'referred_by','gross_tonnage','position_applied','application_source','availability','us_visa','present_company','vessel_type','principal', 'submit' ];
+    length = array.length;
+    params = {};
+    
+    // alert(params['id']);
+    for(a=0;a<length;a++){
+      // alert(array[a]);
+      // alert($("[name='"+array[a]+"']").val())
+      params[array[a]] = $("[name='"+array[a]+"']").val();
+    }
+    // console.log(params);
+    // Integrate with the height of the ajax form
+    backdrop_height = $(".modal-backdrop").height();
+    $(".modal-backdrop").height(backdrop_height+300);
+
+    $.get(submit_url, params, function(data){
+      // alert(data);
+      $(".modal-body").html(data);
+      // height = $("#myModal").css("height");
+      // alert(height);
+      // alert($(document).height());
+    });
+    $(".refresh").html('');
+    $('.modal').focus();
+    // $(".refresh").html("<button class='btn btn-success submit-another'>Submit Another Application</button>");
+  });
+  $(".modal-content").on("click", "button.submit-another", function(){
+    $.ajax({ url: submit_url, success: function(data){
+      $(".modal-body").html(data);
+    }});
+    $(this).remove();
+    $('.modal').focus();
+  });
+  $(".modal-content").on("change", "#id_time_indicator", function(){
+    value = $(this).find("option:selected").text();
+    if(value == 'N/A'){
+      $("#id_num_years_rank").val(0);
+      $("#id_num_years_rank").prop('disabled', true);
+    }else{
+      $("#id_num_years_rank").prop('disabled', false);
+    }
+  });
+</script>
+<script src="{% static 'js/main.js' %} "></script>

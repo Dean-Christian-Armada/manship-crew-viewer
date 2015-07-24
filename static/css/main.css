@@ -346,3 +346,5 @@ td, th{ white-space: nowrap; }
 .ui-icon{ display: inline-block; }
 hr{ border: 1px solid #ccc; }
 .padding-negator{ padding:0px; }
+.warning{ font-weight: 700; }
+ul.errorlist{ padding-left: 15px !important; font-weight: 400; color:rgb(175, 17, 28); }

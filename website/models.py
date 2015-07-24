@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 import re, datetime
 # Create your models here.
@@ -85,10 +85,10 @@ class Application(models.Model):
 	)
 	name = models.CharField(max_length=100, unique=True)
 	# to be formatted by thousand seperators - https://www.python.org/dev/peps/pep-0378/
-	gross_tonnage = models.IntegerField(default=None, )
+	gross_tonnage = models.IntegerField(default=None, verbose_name="Gross Tonnage")
 	# to be seperated by hyphen(mobile format) - http://stackoverflow.com/questions/5254445/add-string-in-a-certain-position-in-python
 	contact_regex = RegexValidator(regex=r'^([0-9]{7}|[0-9]{11})$', message="Telephone and Mobile Numbers are only allowed")
-	contact_number = models.CharField(max_length=15, validators=[contact_regex], default=None, null=True, blank=True)
+	contact_number = models.CharField(max_length=15, validators=[contact_regex], default=None, null=True, blank=True, verbose_name="Contact Number")
 	remarks = models.TextField(null=True, blank=True)
 	date_added = models.DateField(auto_now_add=True, editable=False, null=True)
 	date_modified = models.DateTimeField(editable=False, null=True)
@@ -97,18 +97,18 @@ class Application(models.Model):
 	application_date = models.ForeignKey('Date', verbose_name='Application Date')
 	age = models.ForeignKey('Age')
 	us_visa = models.ForeignKey('USVisa', verbose_name='US Visa')
-	vessel_type = models.ForeignKey('Vtype')
-	num_years_rank = models.FloatField(default=None)
-	time_indicator = models.ForeignKey('TimeIndicator', default=1)
+	vessel_type = models.ForeignKey('Vtype', verbose_name='Vessel Type')
+	num_years_rank = models.FloatField(default=None, validators=[ MinValueValidator(0) ])
+	time_indicator = models.ForeignKey('TimeIndicator', default=1, verbose_name='Time Indicator')
 	availability = models.ForeignKey('Availability')
 	application_source = models.ForeignKey('AppSource', verbose_name='Application Source')
 	position_applied = models.ForeignKey('Position', default=None, verbose_name='Position Applied')
-	ces = models.ForeignKey('CES', default=None, verbose_name='CES')
-	st_at = models.ForeignKey('StAt')
+	ces = models.ForeignKey('CES', default=1, verbose_name='CES')
+	st_at = models.ForeignKey('StAt', default=4)
 	principal = models.ForeignKey('Principal')
-	interview_1 = models.CharField(max_length=5, choices=INTERVIEW_CHOICES, default=None)
-	interview_2 = models.CharField(max_length=5, choices=INTERVIEW_CHOICES, default=None)
-	interview_3 = models.CharField(max_length=5, choices=INTERVIEW_CHOICES, default=None)
+	interview_1 = models.CharField(max_length=5, choices=INTERVIEW_CHOICES, default='-')
+	interview_2 = models.CharField(max_length=5, choices=INTERVIEW_CHOICES, default='-')
+	interview_3 = models.CharField(max_length=5, choices=INTERVIEW_CHOICES, default='-')
 
 	def save(self, *args, **kwargs):
 		if self.date_added != None:

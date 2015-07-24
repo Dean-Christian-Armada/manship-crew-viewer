@@ -41,6 +41,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'tooltips',
+    # 'bootstrap_toolkit',
+    #'bootstrapform',
+    'widget_tweaks',
+    # 'bootstrap3',
     'import_export',
     'website',
     'crew',
@@ -126,7 +130,10 @@ MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (STATIC_PATH, )
 
-# DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
-
-
-# LOGIN_REDIRECT_URL = '/auth/logged_in'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'deanarmada@gmail.com'
+EMAIL_HOST_PASSWORD = 'd3@narmada13'
+DEFAULT_FROM_EMAIL = 'deanarmada@gmail.com'
+DEFAULT_TO_EMAIL = 'deanarmada@gmail.com'

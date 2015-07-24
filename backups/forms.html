@@ -1,0 +1,92 @@
+{# load bootstrap3 #}
+{% load widget_tweaks %}
+
+
+      	<form class="form-horizontal" method="post" action="{% url 'website:submit_application' %}">
+			<div class="modal-body">
+				{% csrf_token %}
+				<div class="form-group">
+				{% for primary_detail in primary_details %}
+	                    <div class="col-md-4">
+	                    	{{ primary_detail.errors }}
+	                    	<label for="{{ primary_detail.id_for_label }}" class="control-label">{{ primary_detail.label }}: </label> 
+	                    	{{ primary_detail|add_class:"form-control"	 }}
+	                    </div>  
+				{% endfor %}
+				</div>
+				<div class="form-group">
+					<div class="col-md-4">
+						<label class="control-label">
+							Rank Duration:
+						</label>
+						<div class="col-md-6 padding-negator">{{ secondary_details.num_years_rank|add_class:"form-control" }}</div>
+						<div class="col-md-6 padding-negator">{{ secondary_details.time_indicator|add_class:"form-control" }}</div>
+					</div>
+					<div class="col-md-4">
+						{{ secondary_details.referred_by.errors }}
+						<label class="control-label" for="{{ secondary_details.referred_by.id_for_label }}">
+							{{ secondary_details.referred_by.label }}:
+						</label>
+						{{ secondary_details.referred_by|add_class:"form-control" }}
+					</div>
+					<div class="col-md-4">
+						{{ secondary_details.gross_tonnage.errors }}
+						<label class="control-label" for="{{ secondary_details.gross_tonnage.id_for_label }}">
+							{{ secondary_details.gross_tonnage.label }}:
+						</label>
+						{{ secondary_details.gross_tonnage|add_class:"form-control" }}
+					</div>
+				</div>
+				<hr>
+				<div class="form-group with-others">
+					{% for tertiary_detail in tertiary_details %}			
+                    	{{ tertiary_detail.errors }}
+                    	<div class="col-md-4">
+                    		<label class="control-label" for="{{ tertiary_detail.id_for_label }}">{{ tertiary_detail.label }}</label>
+                    	</div>
+                    	<div class="col-md-1">
+                    		<label class="control-label">:</label>
+                    	</div>
+                    	<div class="col-md-5 {{ tertiary_detail.id_for_label }}">
+                    		 {{ tertiary_detail|add_class:"form-control"	 }}
+                    	</div>
+                    	<div class="col-md-1">
+                    		<label class="control-label {{ tertiary_detail.id_for_label }} {{ tertiary_detail.name }}">Others</label>
+                    	</div>
+					{% endfor %}
+				</div>
+			</div>
+			
+      	</form>
+<script type="text/javascript">
+	$(".with-others").on("click","label", function(){
+        id = $(this).attr("class").split(' ')[1];
+ 		name = 	$(this).attr("class").split(' ')[2];
+        $("div."+id).html("<input type = 'text' id='"+id+"' class='form-control' name='"+name+"' >");
+        $("input#"+id).focus();
+        $(this).css('display', 'none');
+        $(".refresh").html("<button class='btn btn-warning refresh'>Refresh selections</button>");
+    });
+    $(".modal-content").on("click", ".refresh", function(){
+    	$.ajax({ url: refresh_url, success: function(data){
+    		$(".with-others").html(data);
+    	}});
+    	$(this).html('');
+    });
+    $(".modal-content").on("click", ".submit-application", function(){
+		var first_name;
+    	var last_name;
+    	var contact_number;
+    	var num_years_rank;
+    	var time_indicator;
+    	var referred_by;
+    	var gross_tonnage;
+    	var position_applied;
+    	var application_source;
+    	var availability;
+    	var us_visa;
+    	var present_company;
+    	var vessel_type;
+    	var principal;
+    });
+</script>

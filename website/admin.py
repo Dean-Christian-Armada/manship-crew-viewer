@@ -543,5 +543,18 @@ class ApplicationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Application, ApplicationAdmin)
+
+admin.site.register(Position)
+admin.site.register(Company)
+admin.site.register(Date)
+admin.site.register(Age)
+admin.site.register(USVisa)
+admin.site.register(VType)
+admin.site.register(Availability)
+admin.site.register(AppSource)
+admin.site.register(CES)
+admin.site.register(TimeIndicator)
+admin.site.register(StAt)
+admin.site.register(Principal)
 # admin.site.register(Publication)
 # admin.site.register(Article)

@@ -14,7 +14,7 @@ $('nav ul li a').click(function(){
 	}
 });
 
-$('#multiOpenAccordion').multiAccordion({active: [0,]});
+$('#multiOpenAccordion').multiAccordion({active: [0]});
 $("#back-top").hide();
 $(window).scroll(function () {
 	if ($(this).scrollTop() > 100) {
@@ -27,4 +27,4 @@ $(window).scroll(function () {
 $('#back-top a').click(function () {
 	$('html, body').animate({ scrollTop:0 }, "slow");
 });
-
+// $('[data-toggle="tooltip"]').tooltip({ html: true });

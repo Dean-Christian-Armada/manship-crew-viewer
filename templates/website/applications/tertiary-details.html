@@ -1,0 +1,20 @@
+{% load widget_tweaks %}
+
+{% for tertiary_detail in tertiary_details %}			
+	{{ tertiary_detail.errors }}
+	<div class="col-md-4">
+      <label class="control-label" for="{{ tertiary_detail.id_for_label }}">{{ tertiary_detail.label }}</label>
+    </div>
+    <div class="col-md-1">
+      <label class="control-label">:</label>
+    </div>
+    <div class="col-md-5 {{ tertiary_detail.id_for_label }}">
+       {{ tertiary_detail|add_class:"form-control"   }}
+    </div>
+    <div class="col-md-1">
+      <label class="control-label others {{ tertiary_detail.id_for_label }} {{ tertiary_detail.name }}"><a href = "#">Others</a></label>
+    </div>
+    <div class="col-md-12">
+      {{ tertiary_detail.errors }}
+    </div>  
+{% endfor %}

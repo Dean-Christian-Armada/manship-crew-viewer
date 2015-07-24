@@ -59,7 +59,28 @@ Notes:
 		- ([0-9]{2})(-)([0-9]{2})(-)([0-9]{2})
 			-- Effective for '09.Jul.15' format
 			-- 20$5-$3-$1
+	(July 22, 2015)
+		- Database Structure follows OLAP
 
+
+Application Form Customization:
+	(July 22, 2015)
+		- Used templatetags ('application_form.py' : def app_form : website/applications/form.html )
+	(July 23, 2015)
+		- QuerySetDict / request manipulation
+			-- mutable - cannot be changed
+			-- make it immutable by using .copy()
+				--- request.GET = request.GET.copy()
+				--- request.GET['age'] = 30
+				--- BE careful!
+					---- it enables null value in form errors
+					---- "Field is required" will be neglected
+		- value validation
+			-- Used Try and Except
+			-- an auto email when send when new values are added
+			-- new values are isactive=false
+			-- MinValueValidator of 0 is used in the num_years_rank
+		- one form is just for capturing all data 'CombineForm'
 
 Third-party-packages:
 	(July 16, 2015)

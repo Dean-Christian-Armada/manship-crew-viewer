@@ -1,0 +1,35 @@
+Sir may questions po ako regarding sa referral and application na excel file:
+P.S. pag may time I need some explanations and clarities sana especially on the differences
+	- Fields of APPLICANT excel & REFERRAL excel are different, I assume that these should be related
+		-- INTERVIEWS
+			--- APPLICANTS excel has 'Interview 1', 'Interview 2', 'Interview 3' fields
+				---- values for INTERVIEW fields of APPLICANTS are 'X', 'DNT', 'N/A', 'A', 'P' and '-'
+			--- REFERRALS excel has 'First Interview' & 'Last Interview'
+				---- Athenian & Sea Pioneer has no interview fields
+				---- values for INTERVIEW fields of REFFERALS are either 'blank' or 'ok'
+		-- LACKING DOCUMENTS / US VISA
+			--- APPLICANTS excel has no 'LACKING DOCUMENTS' only 'US VISA'
+				---- values for 'US VISA' field of APPLICANTS are '2015', '2016', '2017', '2018', '2019', '2020', 'D' and 'NONE'
+			--- REFERRALS excel has 'LACKING DOCUMENTS / US VISA' field
+				---- values for 'LACKING DOCUMENTS / US VISA' field 
+					----- in IONIC sheet are 'literal relative values: `nephew`, `uncle` '
+					----- in Manship sheet are 'With valid US VISA '
+					----- in SEA PIONEER sheet are 'With NC1 '
+					----- in ENSEL sheet are 'Mobile Numbers like  `9122667136`'
+					----- in Hellespont sheet are 'NC1'
+		-- EXPERIENCE / LAST FOUR (4) VESSELS
+			--- APPLICANTS excel does not have this field
+			--- What is the difference of a 'blank field' or 'NONE value'?
+		-- Status
+			--- APPLICANTS excel does not have this field
+		-- CES
+			--- in APPLICANTS excel, its values are '-', 'DNT', 'P', 'X'
+			--- in REFERRALS excel, its values are 'rating percentages like 80%, 70%', '3-9-2015', 'HALF BROTHER/ionic'
+				---- ATHENIAN excel sheet has no CES
+				---- SEA PIONEER excel has no CES
+		-- APPLICATION FORM
+			--- APPLICANTS excel does not have this field?
+			--- REFERRALS has it and has the values of 'fleet 1', 'CQ'
+		-- DATE APPLIED
+			--- APPLICANTS excel and REFERRALS have this field
+			--- REFERRALS has it and has the values of '1', '2', '3', '4', '5' which normally consists of dates
